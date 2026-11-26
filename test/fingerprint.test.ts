@@ -8,7 +8,7 @@ test('fingerprints are stable per project, disclose no secret, and add no browse
   assert.match(marker, /^ultron_[a-f0-9]{32}$/);
   assert.equal(createFingerprint(config), marker);
   assert.notEqual(createFingerprint({ ...config, projectId: 'other' }), marker);
-  assert.equal(fingerprintTag(marker), `<meta name="ultron-fingerprint" content="${marker}">`);
+  assert.equal(fingerprintTag(marker), `<meta name="siftkeep-fingerprint" content="${marker}">`);
   assert.throws(() => fingerprintTag('"><script>bad</script>'));
   assert.ok(!marker.includes(config.secret));
 });

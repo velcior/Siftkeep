@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Ultron } from '../src/guard.ts';
+import { Siftkeep } from '../src/guard.ts';
 
 const config = { projectId: 'demo', secret: 's'.repeat(32), requestLimit: 3, uniquePathLimit: 2 };
 const input = (pathname = '/app/reports') => ({ identity: 'customer-123', pathname, requestId: 'req-1' });
 
 test('observe mode reports combined extraction signals but never changes the response', () => {
   const alerts: any[] = [];
-  const guard = new Ultron(config, { onAlert: (event: unknown) => { alerts.push(event); } });
+  const guard = new Siftkeep(config, { onAlert: (event: unknown) => { alerts.push(event); } });
   guard.evaluate(input('/app/a'));
   guard.evaluate(input('/app/b'));
   guard.evaluate(input('/app/c'));
@@ -24,7 +24,7 @@ test('observe mode reports combined extraction signals but never changes the res
 
 test('off mode is a kill switch that emits nothing and never throttles', () => {
   const alerts: unknown[] = [];
-  const guard = new Ultron({ ...config, mode: 'off', requestLimit: 1, uniquePathLimit: 1 }, { onAlert: event => { alerts.push(event); } });
+  const guard = new Siftkeep({ ...config, mode: 'off', requestLimit: 1, uniquePathLimit: 1 }, { onAlert: event => { alerts.push(event); } });
   for (let i = 0; i < 10; i++) {
     const result = guard.evaluate(input('/app/' + i));
     assert.equal(result.success && result.data.action, 'allow');
@@ -36,7 +36,7 @@ test('off mode is a kill switch that emits nothing and never throttles', () => {
 test('one signal never enforces; alerts deduplicate and expire with the window', () => {
   let now = 10_000;
   const alerts: unknown[] = [];
-  const guard = new Ultron({ ...config, mode: 'protect', requestLimit: 1, uniquePathLimit: 1, windowMs: 1000 }, {
+  const guard = new Siftkeep({ ...config, mode: 'protect', requestLimit: 1, uniquePathLimit: 1, windowMs: 1000 }, {
     now: () => now, onAlert: event => { alerts.push(event); },
   });
   guard.evaluate(input('/app/a'));

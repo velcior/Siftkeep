@@ -5,7 +5,7 @@ import type { Config, Dependencies, Diagnostic, EvaluateResult, ExtractionEvent,
 interface WindowState { start: number; count: number; paths: Set<string>; alerted: boolean }
 const matches = (pathname: string, prefix: string) => prefix === '/' || pathname === prefix || pathname.startsWith(prefix.replace(/\/$/, '') + '/');
 
-export class Ultron implements GuardSpec {
+export class Siftkeep implements GuardSpec {
   private readonly config: ReturnType<typeof ConfigSchema.parse>;
   private readonly dependencies: Dependencies;
   private readonly windows = new Map<string, WindowState>();

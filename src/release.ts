@@ -36,7 +36,7 @@ export async function inspectRelease(directory: string, stage: boolean) {
   await visit('');
   let output: string | undefined;
   if (stage && findings.every(issue => issue.reason === 'external source map')) {
-    output = await mkdtemp(join(dirname(root), basename(root) + '-ultron-'));
+    output = await mkdtemp(join(dirname(root), basename(root) + '-siftkeep-'));
     try {
       for (const dir of directories) await mkdir(join(output, dir), { recursive: true });
       for (const file of files) await copyFile(join(root, file), join(output, file));

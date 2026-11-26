@@ -1,6 +1,6 @@
-# TEMPLATE: place in the protected product's repo, alongside a vendored Ultron
-# checkout at tools/ultron. Configure repository variables/secrets below.
-name: Ultron fingerprint watch
+# TEMPLATE: place in the protected product's repo, alongside a vendored Siftkeep
+# checkout at tools/siftkeep. Configure repository variables/secrets below.
+name: Siftkeep fingerprint watch
 on:
   workflow_dispatch:
   # Optional: uncomment after configuring credentials and the alert receiver.
@@ -17,13 +17,13 @@ jobs:
         with:
           node-version: 24
       - run: npm ci
-        working-directory: tools/ultron
-      - run: npm run ultron -- scan-github --project "$ULTRON_PROJECT" --owned-repo "$OWNED_REPO"
-        working-directory: tools/ultron
+        working-directory: tools/siftkeep
+      - run: npm run siftkeep -- scan-github --project "$SIFTKEEP_PROJECT" --owned-repo "$OWNED_REPO"
+        working-directory: tools/siftkeep
         env:
-          ULTRON_PROJECT: ${{ vars.ULTRON_PROJECT }}
+          SIFTKEEP_PROJECT: ${{ vars.SIFTKEEP_PROJECT }}
           OWNED_REPO: ${{ github.repository }}
-          ULTRON_SECRET: ${{ secrets.ULTRON_SECRET }}
-          GITHUB_TOKEN: ${{ secrets.ULTRON_SEARCH_TOKEN }}
-          ULTRON_WEBHOOK_URL: ${{ secrets.ULTRON_WEBHOOK_URL }}
-          ULTRON_WEBHOOK_SECRET: ${{ secrets.ULTRON_WEBHOOK_SECRET }}
+          SIFTKEEP_SECRET: ${{ secrets.SIFTKEEP_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.SIFTKEEP_SEARCH_TOKEN }}
+          SIFTKEEP_WEBHOOK_URL: ${{ secrets.SIFTKEEP_WEBHOOK_URL }}
+          SIFTKEEP_WEBHOOK_SECRET: ${{ secrets.SIFTKEEP_WEBHOOK_SECRET }}

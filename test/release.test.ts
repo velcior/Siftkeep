@@ -6,7 +6,7 @@ import test from 'node:test';
 import { inspectRelease } from '../src/release.ts';
 
 test('release staging omits external maps, preserves assets, and blocks embedded source', async t => {
-  const base = await mkdtemp(join(tmpdir(), 'ultron-test-'));
+  const base = await mkdtemp(join(tmpdir(), 'siftkeep-test-'));
   t.after(() => rm(base, { recursive: true, force: true }));
   const root = join(base, 'web');
   await mkdir(root);

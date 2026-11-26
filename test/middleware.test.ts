@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { once } from 'node:events';
-import { Ultron } from '../src/guard.ts';
+import { Siftkeep } from '../src/guard.ts';
 import { createMiddleware } from '../src/middleware.ts';
 
 test('protect mode throttles read enumeration while auth and writes still work', async t => {
-  const guard = new Ultron({ projectId: 'demo', secret: 's'.repeat(32), mode: 'protect', requestLimit: 3, uniquePathLimit: 2 });
+  const guard = new Siftkeep({ projectId: 'demo', secret: 's'.repeat(32), mode: 'protect', requestLimit: 3, uniquePathLimit: 2 });
   const middleware = createMiddleware(guard, { identify: () => ({ identity: 'server-verified-account' }) });
   const server = createServer((req, res) => middleware(req, res, () => {
     res.writeHead(200, { 'content-type': 'text/plain' });
@@ -30,7 +30,7 @@ test('protect mode throttles read enumeration while auth and writes still work',
 });
 
 test('identity integration and diagnostics failures still run the application exactly once', () => {
-  const guard = new Ultron({ projectId: 'demo', secret: 's'.repeat(32), mode: 'protect' });
+  const guard = new Siftkeep({ projectId: 'demo', secret: 's'.repeat(32), mode: 'protect' });
   const middleware = createMiddleware(guard, {
     identify: () => { throw new Error('Session store unavailable'); },
     onError: () => { throw new Error('Logging unavailable'); },

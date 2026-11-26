@@ -1,6 +1,6 @@
 {
-  "name": "ultron-saas-guard",
-  "version": "2.0.0",
+  "name": "siftkeep",
+  "version": "2.1.0",
   "private": true,
   "description": "Shield private SaaS operations with server-side checks for identity, permissions, and fresh user verification.",
   "type": "module",
@@ -14,12 +14,14 @@
     }
   },
   "bin": {
+    "siftkeep": "./dist/cli.js",
     "ultron": "./dist/cli.js"
   },
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "assets"
   ],
   "scripts": {
     "test": "node --test test/*.test.ts",
@@ -27,6 +29,7 @@
     "build": "tsc -p tsconfig.json",
     "demo": "node examples/server.ts",
     "simulate": "node examples/simulate.ts",
+    "siftkeep": "node src/cli.ts",
     "ultron": "node src/cli.ts"
   },
   "dependencies": {

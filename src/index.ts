@@ -1,4 +1,4 @@
-export { Ultron } from './guard.ts';
+export { Siftkeep, Siftkeep as Ultron } from './guard.ts';
 export { createMiddleware } from './middleware.ts';
 export { createCoreShield } from './core-shield.ts';
 export type { CorePrincipal, CoreShieldOptions } from './core-shield.ts';

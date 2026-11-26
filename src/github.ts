@@ -20,7 +20,7 @@ export class GitHubScanner implements ScannerSpec {
       url.searchParams.set('q', `"${parsed.data.marker}"`);
       url.searchParams.set('per_page', '100');
       const response = await (this.options.fetch ?? fetch)(url.href, {
-        headers: { authorization: `Bearer ${this.options.token}`, accept: 'application/vnd.github+json', 'user-agent': 'ultron-saas-guard/0.1' },
+        headers: { authorization: `Bearer ${this.options.token}`, accept: 'application/vnd.github+json', 'user-agent': 'siftkeep/2.1' },
         redirect: 'error', signal: AbortSignal.timeout(5000),
       });
       if (!response.ok) {

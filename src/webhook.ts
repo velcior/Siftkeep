@@ -19,7 +19,7 @@ export function createWebhookSink(options: WebhookOptions): (event: unknown) => 
     const signature = createHmac('sha256', options.signingSecret).update(timestamp + '.' + body).digest('hex');
     const response = await (options.fetch ?? fetch)(destination, {
       method: 'POST', body, redirect: 'error', signal: AbortSignal.timeout(5000),
-      headers: { 'content-type': 'application/json', 'x-ultron-timestamp': timestamp, 'x-ultron-signature': 'sha256=' + signature },
+      headers: { 'content-type': 'application/json', 'x-ultron-timestamp': timestamp, 'x-ultron-signature': 'sha256=' + signature, 'x-siftkeep-timestamp': timestamp, 'x-siftkeep-signature': 'sha256=' + signature },
     });
     await response.body?.cancel();
     if (!response.ok) throw new Error(`Alert delivery returned HTTP ${response.status}`);

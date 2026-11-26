@@ -17,7 +17,7 @@ export function createMiddleware(guard: GuardSpec, options: MiddlewareOptions) {
     try {
       const subject = options.identify(request);
       if (subject) {
-        const pathname = new URL(request.url ?? '/', 'http://ultron.invalid').pathname;
+        const pathname = new URL(request.url ?? '/', 'http://siftkeep.invalid').pathname;
         const result = guard.evaluate({ ...subject, pathname: options.normalizePath?.(pathname) ?? pathname,
           method: request.method ?? 'GET', requestId: randomUUID(),
         });
