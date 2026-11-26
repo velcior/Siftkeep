@@ -1,0 +1,39 @@
+{
+  "name": "ultron-saas-guard",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Shield private SaaS operations with server-side checks for identity, permissions, and fresh user verification.",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "ultron": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.ts",
+    "check": "tsc -p tsconfig.check.json",
+    "build": "tsc -p tsconfig.json",
+    "demo": "node examples/server.ts",
+    "simulate": "node examples/simulate.ts",
+    "ultron": "node src/cli.ts"
+  },
+  "dependencies": {
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}

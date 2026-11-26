@@ -1,0 +1,29 @@
+# TEMPLATE: place in the protected product's repo, alongside a vendored Ultron
+# checkout at tools/ultron. Configure repository variables/secrets below.
+name: Ultron fingerprint watch
+on:
+  workflow_dispatch:
+  # Optional: uncomment after configuring credentials and the alert receiver.
+  # schedule:
+  #   - cron: '17 */12 * * *'
+permissions:
+  contents: read
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+        working-directory: tools/ultron
+      - run: npm run ultron -- scan-github --project "$ULTRON_PROJECT" --owned-repo "$OWNED_REPO"
+        working-directory: tools/ultron
+        env:
+          ULTRON_PROJECT: ${{ vars.ULTRON_PROJECT }}
+          OWNED_REPO: ${{ github.repository }}
+          ULTRON_SECRET: ${{ secrets.ULTRON_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.ULTRON_SEARCH_TOKEN }}
+          ULTRON_WEBHOOK_URL: ${{ secrets.ULTRON_WEBHOOK_URL }}
+          ULTRON_WEBHOOK_SECRET: ${{ secrets.ULTRON_WEBHOOK_SECRET }}
