@@ -45,3 +45,7 @@ Your app supplies the three callbacks. Resolve the session from trusted server s
 ## Upgrading from Ultron
 
 Use `npm run siftkeep`, import `Siftkeep`, and use the `SIFTKEEP_` prefix for settings. The previous CLI, class export, environment variables and webhook headers remain supported. Keep your existing project ID and secret to continue finding previously deployed fingerprints.
+
+## Contributors
+
+[Velcior](https://github.com/velcior) created and maintains Siftkeep. [OpenAI Codex](https://github.com/codex) contributed code, tests, and documentation.
